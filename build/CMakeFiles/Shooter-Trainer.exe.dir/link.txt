@@ -1,0 +1,1 @@
+/usr/bin/c++ "CMakeFiles/Shooter-Trainer.exe.dir/src/main.cpp.o" -o Shooter-Trainer.exe

@@ -1,0 +1,1 @@
+/usr/bin/c++ "CMakeFiles/Shooter-Trainer.dir/src/main.cpp.o" -o "/mnt/NAS/1-Project-Related/Project-Source-Directories/Shooter Trainer/bin/Shooter-Trainer.exe"  -Wl,-rpath,/usr/local/lib /usr/local/lib/libSDL3.so.0.2.8
