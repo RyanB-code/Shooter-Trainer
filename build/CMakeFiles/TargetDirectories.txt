@@ -1,3 +1,0 @@
-/mnt/NAS/1-Project-Related/Project-Source-Directories/Shooter Trainer/build/CMakeFiles/Shooter-Trainer.dir
-/mnt/NAS/1-Project-Related/Project-Source-Directories/Shooter Trainer/build/CMakeFiles/edit_cache.dir
-/mnt/NAS/1-Project-Related/Project-Source-Directories/Shooter Trainer/build/CMakeFiles/rebuild_cache.dir
