@@ -7,7 +7,7 @@ set(PROJECT_NAME		"Shooter-Trainer")
 set(EXE_NAME			"${PROJECT_NAME}.exe")
 
 # All CPP files
-file(GLOB_RECURSE sources CONFIGURE_DEPENDS "${CMAKE_SOURCE_DIR}/src/*.cpp")
+file(GLOB sources CONFIGURE_DEPENDS "${CMAKE_SOURCE_DIR}/src/*.cpp" )
 
 project(${PROJECT_NAME} VERSION 0.0.1)
 
