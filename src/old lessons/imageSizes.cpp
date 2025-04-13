@@ -145,6 +145,10 @@ int main(){
                 SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
                 SDL_RenderClear( gRenderer );
 
+
+		// Sprite clip is what separates the PNG with all the dots
+		// Coordinate system is TOP LEFT (0, 0), and each clip makes a new rect with the image cutout
+
 		// init sprite clip
 		constexpr float kSpriteSize { 100.f };
 		SDL_FRect spriteClip { 0.f, 0.f, kSpriteSize, kSpriteSize };
