@@ -61,7 +61,11 @@ namespace ShooterTrainer::Logging{
         Logger(const LogSettings& setSettings=LogSettings{ });
         virtual ~Logger();
 
-        void log(const std::string& msg, const std::string& tag, const std::source_location& setLocation=std::source_location::current()) const;
+        void log            (const std::string& msg, const std::string& tag, const std::source_location& location=std::source_location::current()) const;
+        void log_info       (const std::string& msg, const std::source_location& location=std::source_location::current()) const;
+        void log_warn       (const std::string& msg, const std::source_location& location=std::source_location::current()) const;
+        void log_error      (const std::string& msg, const std::source_location& location=std::source_location::current()) const;
+        void log_critical   (const std::string& msg, const std::source_location& location=std::source_location::current()) const;
 
         bool addOutput      (LogOutputPtr output);
         bool removeOutput   (int outputID);
