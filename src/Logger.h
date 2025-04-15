@@ -27,7 +27,7 @@ namespace ShooterTrainer::Logging{
         bool showMsg        { true };
         bool showLocation   { true };
 
-        int textWidth_tag   { 5 };
+        int textWidth_tag   { 9 };
         int textWidth_msg   { 50 };
     };
 
