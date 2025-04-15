@@ -70,7 +70,7 @@ namespace ShooterTrainer::Logging{
         bool        setSettings     (int ID, const LogSettings& setSettings);
 
         LogSettings getAllSettings  () const;
-        LogSettings getSettings     (int ID) const;
+        LogSettings getSettings     (int ID) const; // Throws out_of_range if not there
 
     private:
         LogSettings settings;
