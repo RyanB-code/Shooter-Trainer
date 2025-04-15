@@ -44,6 +44,18 @@ namespace ShooterTrainer::Logging {
 
         return;
     }
+    void Logger::log_info(const std::string& msg, const std::source_location& location) const {
+        log(msg, "INFO", location);
+    }
+    void Logger::log_warn(const std::string& msg, const std::source_location& location) const {
+        log(msg, "WARNING", location);
+    }
+    void Logger::log_error(const std::string& msg, const std::source_location& location) const {
+        log(msg, "ERROR", location);
+    }
+    void Logger::log_critical(const std::string& msg, const std::source_location& location) const {
+        log(msg, "CRITICAL", location);
+    }
     bool Logger::addOutput(LogOutputPtr newOutput) {
         if(outputs.contains(newOutput->getID()))
             return false;
