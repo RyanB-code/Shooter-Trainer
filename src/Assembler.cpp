@@ -1,32 +1,6 @@
 #include <iostream>
 
-#include "Logger.h"
-
-using namespace ShooterTrainer::Logging;
-
-class LogToConsole final : public LogOutput {
-public:
-    LogToConsole(){ }
-    ~LogToConsole(){ }
-
-    void log(const Log& log) const override{
-        std::ostringstream os;
-
-        if(settings.showTime)
-            os << '[' << printTime(log.timestamp) << "] ";
-
-        if(settings.showTags)
-            os << std::format("[{:^{}}] ", log.tag, settings.textWidth_tag);  // Centers the tag
-
-        if(settings.showMsg)
-            os << std::format("{:<{}} ", log.msg, settings.textWidth_msg);  // Left-align the msg
-
-        if(settings.showLocation)
-            os << printLocation(log.location);
-
-        std::cout << os.str() << '\n';
-    }
-};
+#include "Framework.h"
 
 
 int main() {

@@ -110,4 +110,31 @@ namespace ShooterTrainer::Logging {
 
         return os.str();
     }
+
+
+    // Log To Console
+    LogToConsole::LogToConsole(){
+
+    }
+    LogToConsole::~LogToConsole(){
+
+    }
+    void LogToConsole::log(const Log& log) const {
+        std::ostringstream os;
+
+        if(settings.showTime)
+            os << '[' << printTime(log.timestamp) << "] ";
+
+        if(settings.showTags)
+            os << std::format("[{:^{}}] ", log.tag, settings.textWidth_tag);  // Centers the tag
+
+        if(settings.showMsg)
+            os << std::format("{:<{}} ", log.msg, settings.textWidth_msg);  // Left-align the msg
+
+        if(settings.showLocation)
+            os << printLocation(log.location);
+
+        std::puts(os.str().c_str());
+    }
+
 }
