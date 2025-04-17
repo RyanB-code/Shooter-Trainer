@@ -99,8 +99,6 @@ namespace ShooterTrainer::Logging {
     std::string printTime(const std::chrono::system_clock::time_point& time){
         std::chrono::zoned_time zonedTime { std::chrono::current_zone(), time };
 
- //       std::string seconds {std::format("{:%S}", zonedTime)};
-
         return std::format("{:%T}", zonedTime).substr(0, 8);
     }
     std::string printLocation(const std::source_location& location){
