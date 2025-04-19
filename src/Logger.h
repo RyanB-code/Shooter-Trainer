@@ -8,6 +8,8 @@
 #include <chrono>
 #include <map>
 
+#include <SDL3/SDL.h>
+
 namespace ShooterTrainer::Logging{
     
     // Forward Delcarations
@@ -66,6 +68,7 @@ namespace ShooterTrainer::Logging{
         void log_warn       (const std::string& msg, const std::source_location& location=std::source_location::current()) const;
         void log_error      (const std::string& msg, const std::source_location& location=std::source_location::current()) const;
         void log_critical   (const std::string& msg, const std::source_location& location=std::source_location::current()) const;
+        void log_SDL        (const std::source_location& location=std::source_location::current()) const;
 
         bool addOutput      (LogOutputPtr output);
         bool removeOutput   (int outputID);
