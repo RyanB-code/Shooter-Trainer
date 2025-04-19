@@ -5,24 +5,20 @@
 
 namespace ShooterTrainer{
 
-    class Window {
+    class RangeSession {
     public:
-        Window(const char* setTitle, int setWidth, int setHeight);
-        ~Window();
+        RangeSession();
+        ~RangeSession();
 
-        SDL_Window* getWindow () const;
+        bool init(SDL_Window* window=nullptr, SDL_Renderer* renderer=nullptr);
+
     private:
-        SDL_Window* 	window		{ nullptr };
-    };
+        static constexpr char   TITLE[] { "Shooter Trainer" };
+        static constexpr int    WIDTH   { 640 };
+        static constexpr int    HEIGHT  { 800 };
 
-    class Renderer {
-    public:
-        Renderer(SDL_Window* window);
-        ~Renderer();
-
-        SDL_Renderer* getRenderer() const;
-    private:
-        SDL_Renderer* renderer { nullptr };
+        SDL_Window*     window      { nullptr };
+        SDL_Renderer*   renderer    { nullptr };
     };
 
 }
