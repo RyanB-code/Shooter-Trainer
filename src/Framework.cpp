@@ -19,7 +19,23 @@ bool Framework::setup() {
     return true;
 }
 void Framework::run(){
-    logger->log_info("Test Log");
+    if(!SDL_Init(SDL_INIT_VIDEO)){
+		logger->log_critical("SDL could not initialize");
+        logger->log_SDL();
+		return;
+	}
+
+
+    // Window
+    Window window;
+
+    if(!window.init()){
+        logger->log_info("Could not make window");
+        logger->log_SDL();
+    }
+    
+
+    SDL_Quit();
 }
 
 
