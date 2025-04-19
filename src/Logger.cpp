@@ -56,6 +56,9 @@ namespace ShooterTrainer::Logging {
     void Logger::log_critical(const std::string& msg, const std::source_location& location) const {
         log(msg, "CRITICAL", location);
     }
+    void Logger::log_SDL(const std::source_location& location) const {
+        log(std::format("SDL Error: {:}", SDL_GetError()), "SDL", location);
+    }
     bool Logger::addOutput(LogOutputPtr newOutput) {
         if(outputs.contains(newOutput->getID()))
             return false;
