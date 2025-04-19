@@ -2,6 +2,7 @@
 #include <SDL3/SDL_main.h>
 
 #include "Logger.h"
+#include "Window.h"
 
 using namespace ShooterTrainer::Logging;
 
