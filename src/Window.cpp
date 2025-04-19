@@ -2,26 +2,24 @@
 
 using namespace ShooterTrainer;
 
-Window::Window(){
-
+Window::Window(const char* setTitle, int setWidth, int setHeight){
+    window = SDL_CreateWindow(setTitle, setWidth, setHeight, 0);
 }
 Window::~Window(){
-
+    SDL_DestroyWindow(window);
+    window = nullptr;
 }
-bool Window::init(){
-    if(!SDL_CreateWindowAndRenderer(TITLE, HEIGHT, WIDTH, 0, &window, &renderer))
-		return false;
-	
-    return true;
-}
-void Window::destroy(){
-	SDL_DestroyRenderer(renderer);
-	renderer = nullptr;
-
-	SDL_DestroyWindow(window);
-	window = nullptr;
-
-    return
+SDL_Window* Window::getWindow() const {
+    return window;
 }
 
-
+Renderer::Renderer(SDL_Window* window){
+    renderer = SDL_CreateRenderer(window, NULL);
+}
+Renderer::~Renderer(){
+    SDL_DestroyRenderer(renderer);
+    renderer = nullptr;
+}
+SDL_Renderer* Renderer::getRenderer() const {
+    return renderer;
+}

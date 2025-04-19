@@ -1,25 +1,28 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
-#include <SDL3_image/SDL_image.h>
 
+#include <iostream>
 
 namespace ShooterTrainer{
 
     class Window {
     public:
-        Window();
+        Window(const char* setTitle, int setWidth, int setHeight);
         ~Window();
 
-        bool init();
-        void destroy();
-
+        SDL_Window* getWindow () const;
     private:
-        static constexpr char   TITLE[] { "Shooter Trainer" };
-        static constexpr int    HEIGHT  { 640 };
-        static constexpr int    WIDTH   { 800 };
-
-        SDL_Renderer* 	renderer 	{ nullptr };
         SDL_Window* 	window		{ nullptr };
+    };
+
+    class Renderer {
+    public:
+        Renderer(SDL_Window* window);
+        ~Renderer();
+
+        SDL_Renderer* getRenderer() const;
+    private:
+        SDL_Renderer* renderer { nullptr };
     };
 
 }
