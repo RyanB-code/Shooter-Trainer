@@ -88,12 +88,6 @@ namespace ShooterTrainer::Logging{
     std::string printTime       (const std::chrono::system_clock::time_point& time);
     std::string printLocation   (const std::source_location& location);
 
-
-
-
-
-
-
     // Log To Console
     class LogToConsole final : public LogOutput {
     public:
