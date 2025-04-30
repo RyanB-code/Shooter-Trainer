@@ -3,6 +3,7 @@
 
 #include "Logger.h"
 #include "Window.h"
+#include "AssetManager.h"
 
 using namespace ShooterTrainer::Logging;
 
@@ -16,7 +17,9 @@ namespace ShooterTrainer::Framework{
         void run();
     private:
         LoggerPtr logger;
+        AssetManager assetManager;
 
         bool setupLogger();
+        bool setupAssetManager();
     };
 }

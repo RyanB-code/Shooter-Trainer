@@ -16,6 +16,15 @@ bool Framework::setup() {
         }
     }
 
+    logger->log_info("Setup Logger");
+
+    if(!setupAssetManager()){
+        logger->log_critical("Cannot setup Asset Manager. Application aborted");
+        return false;
+    }
+    
+    logger->log_info("Setup Asset Manager");
+
     return true;
 }
 void Framework::run(){
@@ -57,6 +66,28 @@ bool Framework::setupLogger() {
 
     return true;
 }
+bool Framework::setupAssetManager(){
+    // Carried over from LAS
+    #ifdef __linux__
+        std::string exePath {std::filesystem::canonical(std::filesystem::path{"/proc/self/exe"})};
+        std::string parentDir;
 
+        // Iterates backwards over the EXE path and just goes until it finds the first slash and then returns that string
+        for(int i{static_cast<int>(exePath.length())-1}; i >= 0; --i){
+            char c {exePath.at(i)};
+            if(c == '/' || c == '\\'){
+                parentDir = exePath.substr(0, ++i);
+                break;
+            }
+        }
+    #else
+        std::cerr << "Only Linux is currently supported.\n";
+        return false;
+    #endif
+
+    parentDir += "Testing/";
+
+    return assetManager.setupFilesystem(parentDir);
+}
 
 }
