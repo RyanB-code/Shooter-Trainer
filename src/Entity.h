@@ -20,7 +20,7 @@ namespace ShooterTrainer {
     public:
         Entity();
         Entity(UUID setId);
-        ~Entity();
+        virtual ~Entity();
 
         UUID getUUID() const;
 
