@@ -3,6 +3,24 @@
 
 namespace ShooterTrainer{
 
+std::size_t EntityTypeHasher::operator()(TypeInfoRef type) const{
+    return type.get().hash_code();
+}
+
+bool EntityTypeEquivalence::operator()(TypeInfoRef lhs, TypeInfoRef rhs) const{
+    return lhs.get() == rhs.get();
+}
+
+EntityRegistry::EntityRegistry(){
+
+}
+EntityRegistry::~EntityRegistry(){
+
+}
+std::size_t EntityRegistry::getSize() const {
+    return registry.size();
+}
+
 static std::random_device RANDOM_DEVICE;
 static std::mt19937_64 RANDOM_ENGINE(RANDOM_DEVICE());
 static std::uniform_int_distribution<uint64_t> UNIFORM_DISTRIBUTION;
@@ -36,4 +54,4 @@ std::size_t Entity::getRegistrySize() const {
     return registry.getSize();
 }
 
-}
+} // End namespace ShooterTrainer
