@@ -40,15 +40,17 @@ namespace ShooterTrainer {
             }
 
             template<typename Type>
-            bool hasComponent(Type object){
+            bool hasComponent(Type object) const{
                 return registry.contains(typeid(object));
             }
 
             // Throws out_of_range if key not found
             template<typename Type>
-            Type& getComponent(Type object){
+            Type& getComponent(Type object) {
                 return std::any_cast<Type&>(registry.at(typeid(object)));
             }
+
+            std::size_t getSize() const;
 
     private:
         std::unordered_map<TypeInfoRef, std::any, EntityTypeHasher, EntityTypeEquivalence> registry { };

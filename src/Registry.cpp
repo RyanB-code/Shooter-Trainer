@@ -17,6 +17,9 @@ EntityRegistry::EntityRegistry(){
 EntityRegistry::~EntityRegistry(){
 
 }
+std::size_t EntityRegistry::getSize() const {
+    return registry.size();
+}
 
 
 
