@@ -20,5 +20,20 @@ UUID::operator uint64_t() const {
     return id;
 }
     
+Entity::Entity() : id { UUID { } } {
+
+}
+Entity::Entity(UUID setID) : id { setID }{
+
+}
+Entity::~Entity(){
+
+}
+UUID Entity::getUUID() const {
+    return id;
+}
+std::size_t Entity::getRegistrySize() const {
+    return registry.getSize();
+}
 
 }
