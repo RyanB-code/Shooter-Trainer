@@ -2,49 +2,53 @@
 
 namespace ShooterTrainer::Framework{
 
-Framework::Framework(LoggerPtr setLogger) : logger {setLogger}{
+Framework::Framework() {
 
 }
 Framework::~Framework(){
 
 }
 bool Framework::setup() {
-    if(!logger){
-        if(!setupLogger()){
-            std::puts("Failed to start logging system.\nApplication aborted.");
-            return false;
-        }
+    if(!setupLogger()){
+        std::puts("Failed to start logging system.\nApplication aborted.");
+        return false;
     }
 
-    logger->log_info("Setup Logger");
+    log_info("Setup Logger");
 
     if(!setupAssetManager()){
-        logger->log_critical("Cannot setup Asset Manager. Application aborted");
+        log_critical("Cannot setup Asset Manager. Application aborted");
         return false;
     }
     
-    logger->log_info("Setup Asset Manager");
+    log_info("Setup Asset Manager");
 
     return true;
 }
 void Framework::run(){
     if(!SDL_Init(SDL_INIT_VIDEO)){
-		logger->log_critical("SDL could not initialize");
-        logger->log_SDL();
+		log_critical("SDL could not initialize");
+        log_SDL();
 		return;
 	}
 
+    RangeSession session;
 
-    // Window
-    Window window;
-
-    if(!window.init()){
-        logger->log_info("Could not make window");
-        logger->log_SDL();
+    if(!session.init()){
+        log_info("Failed to init range session");
+        SDL_Quit();
+        return;
     }
-    
+
+    try{
+        session.run();
+    }
+    catch(std::exception& e){
+        std::puts(e.what());
+    }
 
     SDL_Quit();
+
 }
 
 
@@ -56,13 +60,12 @@ bool Framework::setupLogger() {
     settings.textWidth_msg  = 100;
     settings.showLocation   = false;
 
-    logger = std::make_shared<Logger>(Logger{settings});
-    if(!logger->addOutput(std::make_shared<LogToConsole>(LogToConsole{ }))){
+    if(!addOutput(std::make_shared<LogToConsole>(LogToConsole{ }))){
         std::puts("Could not add Console Logging as a Logger Output");
         return false;
     }
 
-    logger->setAllSettings(settings);
+    setAllSettings(settings);
 
     return true;
 }

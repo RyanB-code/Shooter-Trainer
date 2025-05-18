@@ -10,13 +10,12 @@ using namespace ShooterTrainer::Logging;
 namespace ShooterTrainer::Framework{
     class Framework final {
     public:
-        Framework(LoggerPtr setLogger=nullptr);
+        Framework();
         ~Framework();
 
         bool setup();
         void run();
     private:
-        LoggerPtr logger;
         AssetManager assetManager;
 
         bool setupLogger();
