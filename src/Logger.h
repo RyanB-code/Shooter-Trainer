@@ -60,17 +60,13 @@ namespace ShooterTrainer::Logging{
 
     class Logger {
     public:
-        Logger(const LogSettings& setSettings=LogSettings{ });
-        virtual ~Logger();
+        ~Logger();
+
+        static Logger& getInstance();
 
         void log            (const std::string& msg, const std::string& tag, const std::source_location& location=std::source_location::current()) const;
-        void log_info       (const std::string& msg, const std::source_location& location=std::source_location::current()) const;
-        void log_warn       (const std::string& msg, const std::source_location& location=std::source_location::current()) const;
-        void log_error      (const std::string& msg, const std::source_location& location=std::source_location::current()) const;
-        void log_critical   (const std::string& msg, const std::source_location& location=std::source_location::current()) const;
-        void log_SDL        (const std::source_location& location=std::source_location::current()) const;
-
         bool addOutput      (LogOutputPtr output);
+        bool contains       (int ID) const;
         bool removeOutput   (int outputID);
 
         void        setAllSettings  (const LogSettings& setSettings);
@@ -80,8 +76,12 @@ namespace ShooterTrainer::Logging{
         LogSettings getSettings     (int ID) const; // Throws out_of_range if not there
 
     private:
-        LogSettings settings;
-        std::map<int, LogOutputPtr> outputs;
+        Logger();
+        Logger(const Logger& other) = delete;
+        Logger& operator=(const Logger& other) = delete;
+
+        LogSettings settings { };
+        std::map<int, LogOutputPtr> outputs { };
     };
 
     // Helper Functions
@@ -97,5 +97,24 @@ namespace ShooterTrainer::Logging{
         void log(const Log& log) const;
     };
 
+}
 
+namespace ShooterTrainer {
+    void log            (const std::string& msg, const std::string& tag, const std::source_location& location=std::source_location::current());
+    void log_info       (const std::string& msg, const std::source_location& location=std::source_location::current());
+    void log_warn       (const std::string& msg, const std::source_location& location=std::source_location::current());
+    void log_error      (const std::string& msg, const std::source_location& location=std::source_location::current());
+    void log_critical   (const std::string& msg, const std::source_location& location=std::source_location::current());
+    void log_SDL        (const std::source_location& location=std::source_location::current());
+
+    namespace Logging {
+        bool addOutput      (LogOutputPtr output);
+        bool removeOutput   (int outputID);
+
+        void        setAllSettings  (const LogSettings& setSettings);
+        bool        setSettings     (int ID, const LogSettings& setSettings);
+
+        LogSettings getAllSettings  ();
+        LogSettings getSettings     (int ID); // Throws out_of_range if not there
+    }
 }

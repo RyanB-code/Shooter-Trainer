@@ -25,15 +25,21 @@ namespace ShooterTrainer::Logging {
     }
 
 
-    Logger::Logger(const LogSettings& setSettings) : settings { setSettings } {
+    Logger::Logger() {
 
     }
     Logger::~Logger(){
 
     }
+    Logger& Logger::getInstance() {
+        static Logger instance;
+        return instance;
+    }
     void Logger::log(const std::string& msg, const std::string& tag, const std::source_location& location) const {
-        if(outputs.empty())
+        if(outputs.empty()){
+            std::puts("There are no log outputs.");
             return;
+        }
 
         const std::chrono::zoned_time time { std::chrono::current_zone(), std::chrono::system_clock::now() };
 
@@ -44,26 +50,14 @@ namespace ShooterTrainer::Logging {
 
         return;
     }
-    void Logger::log_info(const std::string& msg, const std::source_location& location) const {
-        log(msg, "INFO", location);
-    }
-    void Logger::log_warn(const std::string& msg, const std::source_location& location) const {
-        log(msg, "WARNING", location);
-    }
-    void Logger::log_error(const std::string& msg, const std::source_location& location) const {
-        log(msg, "ERROR", location);
-    }
-    void Logger::log_critical(const std::string& msg, const std::source_location& location) const {
-        log(msg, "CRITICAL", location);
-    }
-    void Logger::log_SDL(const std::source_location& location) const {
-        log(std::format("SDL Error: {:}", SDL_GetError()), "SDL", location);
-    }
     bool Logger::addOutput(LogOutputPtr newOutput) {
         if(outputs.contains(newOutput->getID()))
             return false;
 
         return outputs.try_emplace(newOutput->getID(), newOutput).second;
+    }
+    bool Logger::contains(int ID) const {
+        return outputs.contains(ID);
     }
     bool Logger::removeOutput(int ID) {
         auto iterator { outputs.find(ID) };
@@ -99,6 +93,7 @@ namespace ShooterTrainer::Logging {
         return outputs.at(ID)->getSettings();
     }
 
+    // Helper Functions
     std::string printTime(const std::chrono::system_clock::time_point& time){
         std::chrono::zoned_time zonedTime { std::chrono::current_zone(), time };
 
@@ -138,4 +133,41 @@ namespace ShooterTrainer::Logging {
         std::puts(os.str().c_str());
     }
 
+}
+
+namespace ShooterTrainer{
+    void log_info(const std::string& msg, const std::source_location& location) {
+        Logging::Logger::getInstance().log(msg, "INFO", location);
+    }
+    void log_warn(const std::string& msg, const std::source_location& location) {
+        Logging::Logger::getInstance().log(msg, "WARNING", location);
+    }
+    void log_error(const std::string& msg, const std::source_location& location) {
+        Logging::Logger::getInstance().log(msg, "ERROR", location);
+    }
+    void log_critical(const std::string& msg, const std::source_location& location) {
+        Logging::Logger::getInstance().log(msg, "CRITICAL", location);
+    }
+    void log_SDL(const std::source_location& location) {
+        Logging::Logger::getInstance().log(std::format("SDL Error: {:}", SDL_GetError()), "SDL", location);
+    }
+
+    bool Logging::addOutput(LogOutputPtr newOutput) {
+        return Logger::getInstance().addOutput(newOutput);
+    }
+    bool Logging::removeOutput(int ID) {
+        return Logger::getInstance().removeOutput(ID);
+    }
+    void Logging::setAllSettings(const LogSettings& setSettings){
+        return Logger::getInstance().setAllSettings(setSettings);
+    }
+    bool Logging::setSettings(int ID, const LogSettings& setSettings){
+        return Logger::getInstance().setSettings(ID, setSettings);
+    }
+    Logging::LogSettings Logging::getAllSettings() {
+        return Logger::getInstance().getAllSettings();
+    }
+    Logging::LogSettings Logging::getSettings(int ID) {
+        return Logger::getInstance().getSettings(ID);
+    }
 }
